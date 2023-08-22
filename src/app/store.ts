@@ -1,17 +1,24 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+// store.ts
 
-export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
-});
+import { configureStore } from '@reduxjs/toolkit';
+import adminReducer from '../features/admin/adminSlice';
+import userReducer from '../features/user/userSlice';
+import authReducer from '../features/auth/authSlice';
 
+// Definisikan tipe RootState
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->;
+
+const rootReducer = {
+  admin: adminReducer,
+  user: userReducer,
+  auth: authReducer,
+  // ...
+};
+
+const store = configureStore({
+  reducer: rootReducer,
+  // ...
+});
+
+export default store;
